@@ -48,9 +48,13 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api/swagger-docs', app, document);
 
-  app.enableCors(corsOptions);
   app.use(helmet());
-
+  app.enableCors({
+    origin: ['*'],
+    methods: ['GET', 'POST', 'HEAD', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+    credentials: true,
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Custom-Header', 'Accept', 'rbac_token','tenantid','academicyearid','deviceid' ]
+  });
   await app.listen(configService.get('port') || 4000, () => {});
 }
 
