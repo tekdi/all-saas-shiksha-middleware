@@ -47,6 +47,18 @@ export class MiddlewareServices {
       let reqUrl = originalUrl.split('?')[0];
       const withPattern = this.matchUrl(reqUrl);
       reqUrl = withPattern || reqUrl;
+      if(req.headers['authorization']) {
+        const token = req.headers['authorization'].split('.')[1];
+        const decodedPayload = atob(token); // Decode the base64 payload
+        const parsedPayload = JSON.parse(decodedPayload);
+        let userId = parsedPayload.sub;
+        const isSuperAdmin = await this.permissionService.isSuperAdmin(userId)
+        if (isSuperAdmin) {
+          // If super_admin, forward the request immediately
+          const response = await this.forwardRequest(req, res);
+          return res.json(response);
+        }
+      }
       //check for public api
       if (!publicAPI.includes(reqUrl)) {
         //check for tenantId

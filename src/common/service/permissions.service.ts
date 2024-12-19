@@ -101,4 +101,16 @@ export class PermissionsService {
     // Return cached roles for the specified tenant
     return cachedData.roles[tenantId];
   }
+
+  async isSuperAdmin (userId) {
+
+    const roleCodes = await this.userRolesMapping.query(
+    `SELECT r."code"
+      FROM "UserRolesMapping" urm
+      JOIN "Roles" r ON urm."roleId" = r."roleId"
+      WHERE urm."userId" = $1 AND r."code" = 'super_admin';
+      `,[userId],
+    );
+  return roleCodes.length > 0;
+  }
 }
