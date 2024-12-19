@@ -58,15 +58,12 @@ sample output from above input
  */
 const rolesGroup = {
   common: [
-    'admin',
-    'team_leader',
-    'teacher',
-    'student',
-    'learner',
-    'state_admin_mme',
-    'central_admin_mme',
+    'super_admin',
+    'tenant_admin',
+    'cohort_admin'
   ],
-  //admin: ['admin'], //state_admin_mme
+  super_admin: ['super_admin'], //state_admin_mme
+  super_tenant_admin:['super_admin','tenant_admin'],
   central_admin_ccta: ['central_admin_ccta'],
   central_admin_mme: ['central_admin_mme'],
   state_admin_scta: ['state_admin_scta'],
@@ -157,7 +154,9 @@ const createRouteObject = (
 export const apiList = {
   //tenant api
   '/user/v1/tenant/read': createRouteObject({
-    get: {},
+    get: {
+      ROLE_CHECK : rolesGroup.common,
+    },
   }),
   //public api
   '/user/v1/auth/login': createRouteObject({
@@ -177,7 +176,7 @@ export const apiList = {
   '/user/v1/create': createRouteObject({
     post: {
       // PRIVILEGE_CHECK: privilegeGroup.users.create,
-      // ROLE_CHECK: rolesGroup.admin_team_leader_teacher,
+      ROLE_CHECK: rolesGroup.common,
     },
   }),
   '/user/v1/read/:userId': createRouteObject({
@@ -189,24 +188,22 @@ export const apiList = {
   }),
   '/user/v1/update/:userId': createRouteObject({
     patch: {
-      PRIVILEGE_CHECK: privilegeGroup.users.update,
-      ROLE_CHECK: rolesGroup.admin_team_leader_teacher.concat(
-        rolesGroup.student,
-      ),
+      
+      ROLE_CHECK: rolesGroup.common
     },
   }),
   '/user/v1/delete/:userId': createRouteObject({
     delete: {
-      PRIVILEGE_CHECK: privilegeGroup.users.delete,
-      ROLE_CHECK: rolesGroup.admin_team_leader_teacher,
+      ROLE_CHECK: rolesGroup.common
     },
   }),
   '/user/v1/list': createRouteObject({
     post: {
-      PRIVILEGE_CHECK: privilegeGroup.users.read,
-      ROLE_CHECK: rolesGroup.admin_team_leader_teacher.concat(
-        rolesGroup.student,
-      ),
+      // PRIVILEGE_CHECK: privilegeGroup.users.read,
+      // ROLE_CHECK: rolesGroup.admin_team_leader_teacher.concat(
+      //   rolesGroup.student,
+      // ),
+      ROLE_CHECK : rolesGroup.common,
     },
   }),
   //need confirmation
@@ -249,26 +246,27 @@ export const apiList = {
   }),
   '/user/v1/cohort/create': createRouteObject({
     post: {
-      PRIVILEGE_CHECK: privilegeGroup.cohort.create,
-      ROLE_CHECK: rolesGroup.team_leader,
+      // PRIVILEGE_CHECK: privilegeGroup.cohort.create,
+      // ROLE_CHECK: rolesGroup.team_leader,
+      ROLE_CHECK: rolesGroup.super_tenant_admin,
     },
   }),
   '/user/v1/cohort/search': createRouteObject({
     post: {
       PRIVILEGE_CHECK: privilegeGroup.cohort.read,
-      ROLE_CHECK: rolesGroup.team_leader_teacher,
-    },
+      // ROLE_CHECK: rolesGroup.team_leader_teacher,
+      ROLE_CHECK: rolesGroup.common,
+    },  
   }),
   '/user/v1/cohort/update/:cohortId': createRouteObject({
     put: {
-      PRIVILEGE_CHECK: privilegeGroup.cohort.update,
-      ROLE_CHECK: rolesGroup.team_leader,
+      ROLE_CHECK: rolesGroup.common,
     },
   }),
   '/user/v1/cohort/delete/:cohortId': createRouteObject({
     delete: {
-      PRIVILEGE_CHECK: privilegeGroup.cohort.delete,
-      ROLE_CHECK: rolesGroup.team_leader,
+      // PRIVILEGE_CHECK: privilegeGroup.cohort.delete,
+      ROLE_CHECK: rolesGroup.super_tenant_admin,
     },
   }),
   '/user/v1/cohort/mycohorts/:userId': createRouteObject({
@@ -328,7 +326,8 @@ export const apiList = {
   }),
   '/user/v1/rbac/roles/create': createRouteObject({
     post: {
-      ROLE_CHECK: rolesGroup.admin_team_leader,
+      // ROLE_CHECK: rolesGroup.admin_team_leader,
+      ROLE_CHECK: rolesGroup.super_admin
     },
   }),
   '/user/v1/rbac/roles/update/:id': createRouteObject({
@@ -385,17 +384,17 @@ export const apiList = {
   }),
   '/user/v1/tenant/create': createRouteObject({
     post: {
-      ROLE_CHECK: rolesGroup.admin_mme,
+      ROLE_CHECK: rolesGroup.super_admin
     },
   }),
-  '/user/v1/tenant/update/:identifier': createRouteObject({
-    post: {
-      ROLE_CHECK: rolesGroup.admin_mme,
+  '/user/v1/tenant/update': createRouteObject({
+    patch: {
+      ROLE_CHECK: rolesGroup.super_admin
     },
   }),
-  '/user/v1/tenant/delete/:identifier': createRouteObject({
+  '/user/v1/tenant/delete': createRouteObject({
     post: {
-      ROLE_CHECK: rolesGroup.admin_mme,
+      ROLE_CHECK: rolesGroup.super_admin
     },
   }),
   '/user/v1/academicyears/create': createRouteObject({
@@ -1557,11 +1556,11 @@ export const apiList = {
 export const urlPatterns = Object.keys(apiList);
 
 //add public api
-export const publicAPI = [
+export const publicAPI = [  // no check of auth 
   '/user/v1/auth',
-  '/user/v1/create',
+  // '/user/v1/create',
   '/user/v1/fields/options/read',
-  '/user/v1/tenant/read',
+  // '/user/v1/tenant/read',
   '/user/v1/auth/login',
   '/user/v1/auth',
   '/api/question/v2/list',
@@ -1593,8 +1592,8 @@ export const apiListForAcademicYear = [
   '/user/v1/cohortmember/bulkCreate',
   '/user/v1/cohortmember/create',
   '/user/v1/cohortmember/read/:identifier',
-  '/user/v1/cohort/create',
-  '/user/v1/cohort/search',
+  // '/user/v1/cohort/create',
+  // '/user/v1/cohort/search',
   '/user/v1/cohort/mycohorts/:identifier',
 ];
 

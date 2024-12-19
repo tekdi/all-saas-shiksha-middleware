@@ -17,7 +17,7 @@ export class GatewayService {
   ) {
     let newheaders = {
       tenantId: oheaders['tenantid'],
-      academicyearid: oheaders['academicyearid'],
+      // academicyearid: oheaders['academicyearid'],
       'content-type': 'application/json',
       authorization: oheaders['authorization'],
     };
