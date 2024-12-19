@@ -1,0 +1,22 @@
+name: Deployment on the All-saas-middleware Dev
+on:
+  push:
+    branches:
+      - all-saas-0.1-dev
+
+jobs:
+  ALL-SAAS-USER-MICROSERVICE-DEPLOYMENT:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Deploy Stack
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST_NAME_DEV }}
+          username: ${{ secrets.USERNAME_DEV }}
+          key: ${{ secrets.EC2_SSH_KEY_DEV }}
+          port: ${{ secrets.PORT_DEV }}
+          script: |
+            cd ${{ secrets.TARGET_DEV_DIR }}
+            ls -ltra
+            ./deploy.sh
