@@ -63,7 +63,7 @@ const rolesGroup = {
     'cohort_admin'
   ],
   super_admin: ['super_admin'], //state_admin_mme
-  super_tenant_admin:['super_admin','tenant_admin'],
+  super_and_tenant_admin:['super_admin','tenant_admin'],
   central_admin_ccta: ['central_admin_ccta'],
   central_admin_mme: ['central_admin_mme'],
   state_admin_scta: ['state_admin_scta'],
@@ -248,7 +248,7 @@ export const apiList = {
     post: {
       // PRIVILEGE_CHECK: privilegeGroup.cohort.create,
       // ROLE_CHECK: rolesGroup.team_leader,
-      ROLE_CHECK: rolesGroup.super_tenant_admin,
+      ROLE_CHECK: rolesGroup.super_and_tenant_admin,
     },
   }),
   '/user/v1/cohort/search': createRouteObject({
@@ -266,7 +266,7 @@ export const apiList = {
   '/user/v1/cohort/delete/:cohortId': createRouteObject({
     delete: {
       // PRIVILEGE_CHECK: privilegeGroup.cohort.delete,
-      ROLE_CHECK: rolesGroup.super_tenant_admin,
+      ROLE_CHECK: rolesGroup.super_and_tenant_admin,
     },
   }),
   '/user/v1/cohort/mycohorts/:userId': createRouteObject({
