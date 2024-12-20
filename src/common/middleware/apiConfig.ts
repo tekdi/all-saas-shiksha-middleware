@@ -181,9 +181,9 @@ export const apiList = {
   }),
   '/user/v1/read/:userId': createRouteObject({
     get: {
-      PRIVILEGE_CHECK: privilegeGroup.users.read,
-      ROLE_CHECK:
-        rolesGroup.admin_team_leader_teacher_student_state_admin_scta_ccta,
+      // PRIVILEGE_CHECK: privilegeGroup.users.read,
+      // ROLE_CHECK:
+      //   rolesGroup.common,
     },
   }),
   '/user/v1/update/:userId': createRouteObject({
@@ -253,9 +253,9 @@ export const apiList = {
   }),
   '/user/v1/cohort/search': createRouteObject({
     post: {
-      PRIVILEGE_CHECK: privilegeGroup.cohort.read,
+      // PRIVILEGE_CHECK: privilegeGroup.cohort.read,
       // ROLE_CHECK: rolesGroup.team_leader_teacher,
-      ROLE_CHECK: rolesGroup.common,
+      // ROLE_CHECK: rolesGroup.common,
     },  
   }),
   '/user/v1/cohort/update/:cohortId': createRouteObject({
@@ -1558,10 +1558,12 @@ export const urlPatterns = Object.keys(apiList);
 //add public api
 export const publicAPI = [  // no check of auth 
   '/user/v1/auth',
+  '/user/v1/cohort/search',
   // '/user/v1/create',
   '/user/v1/fields/options/read',
   // '/user/v1/tenant/read',
   '/user/v1/auth/login',
+  '/user/v1/read/:userId',
   '/user/v1/auth',
   '/api/question/v2/list',
   '/action/question/v2/list',
