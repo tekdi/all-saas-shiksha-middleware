@@ -154,9 +154,7 @@ const createRouteObject = (
 export const apiList = {
   //tenant api
   '/user/v1/tenant/read': createRouteObject({
-    get: {
-      ROLE_CHECK : rolesGroup.common,
-    },
+    get: {},
   }),
   //public api
   '/user/v1/auth/login': createRouteObject({
@@ -199,11 +197,6 @@ export const apiList = {
   }),
   '/user/v1/list': createRouteObject({
     post: {
-      // PRIVILEGE_CHECK: privilegeGroup.users.read,
-      // ROLE_CHECK: rolesGroup.admin_team_leader_teacher.concat(
-      //   rolesGroup.student,
-      // ),
-      ROLE_CHECK : rolesGroup.common,
     },
   }),
   //need confirmation
@@ -1561,7 +1554,8 @@ export const publicAPI = [  // no check of auth
   '/user/v1/cohort/search',
   // '/user/v1/create',
   '/user/v1/fields/options/read',
-  // '/user/v1/tenant/read',
+  '/user/v1/tenant/read',
+  '/user/v1/list',
   '/user/v1/auth/login',
   '/user/v1/read/:userId',
   '/user/v1/auth',
