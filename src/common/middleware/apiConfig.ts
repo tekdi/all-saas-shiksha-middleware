@@ -330,7 +330,7 @@ export const apiList = {
   }),
   '/user/v1/rbac/roles/list/roles': createRouteObject({
     post: {
-      ROLE_CHECK: rolesGroup.admin_team_leader,
+      ROLE_CHECK: rolesGroup.common,
     },
   }),
   '/user/v1/rbac/roles/delete/:roleId': createRouteObject({
