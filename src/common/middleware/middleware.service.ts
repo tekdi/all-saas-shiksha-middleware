@@ -356,7 +356,7 @@ export class MiddlewareServices {
           req.userId,
           req.headers['tenantid'],
         );
-      if (rolesOfTenant.name == 'UnauthorizedException') {
+      if (!rolesOfTenant && rolesOfTenant.response.error == 'Unauthorized') {
         return reject("User doesn't have appropriate privilege");
       }
 
