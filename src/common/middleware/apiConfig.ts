@@ -161,6 +161,10 @@ export const apiList = {
     post: {},
   }),
   //public api
+  '/user/v1/auth/validateAndRegister': createRouteObject({
+    post: {},
+  }),
+  //public api
   '/prathamservice/v1/import-user': createRouteObject({
     post: {},
   }),
@@ -1557,6 +1561,7 @@ export const publicAPI = [  // no check of auth
   '/user/v1/tenant/read',
   '/user/v1/list',
   '/user/v1/auth/login',
+  '/user/v1/auth/validateAndRegister',
   '/user/v1/read/:userId',
   '/user/v1/auth',
   '/api/question/v2/list',
