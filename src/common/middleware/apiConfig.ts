@@ -381,7 +381,6 @@ export const apiList = {
   }),
   '/user/v1/tenant/create': createRouteObject({
     post: {
-      ROLE_CHECK: rolesGroup.super_admin
     },
   }),
   '/user/v1/tenant/update': createRouteObject({
@@ -1556,6 +1555,7 @@ export const urlPatterns = Object.keys(apiList);
 export const publicAPI = [  // no check of auth 
   '/user/v1/auth',
   '/user/v1/cohort/search',
+  '/user/v1/tenant/create',
   // '/user/v1/create',
   '/user/v1/fields/options/read',
   '/user/v1/tenant/read',
