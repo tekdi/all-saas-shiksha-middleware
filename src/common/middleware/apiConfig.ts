@@ -1547,7 +1547,11 @@ export const apiList = {
     },
   }),
   '/user/v1/invitation/getall': createRouteObject(common_public_get),
-  '/user/v1/invitation/update': createRouteObject(common_public_get),
+  '/user/v1/invitation/update': createRouteObject({
+    patch: {
+      // ROLE_CHECK: rolesGroup.common
+    }
+  }),
 };
 export const urlPatterns = Object.keys(apiList);
 
