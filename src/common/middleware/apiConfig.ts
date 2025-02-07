@@ -156,6 +156,11 @@ export const apiList = {
   '/user/v1/tenant/read': createRouteObject({
     get: {},
   }),
+  '/user/v1/invitation/sendinvite' : createRouteObject({
+    post: {
+      ROLE_CHECK: rolesGroup.super_and_tenant_admin,
+    },
+  }),
   //public api
   '/user/v1/auth/login': createRouteObject({
     post: {},
