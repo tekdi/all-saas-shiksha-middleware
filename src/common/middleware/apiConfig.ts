@@ -57,13 +57,9 @@ sample output from above input
 ``
  */
 const rolesGroup = {
-  common: [
-    'super_admin',
-    'tenant_admin',
-    'cohort_admin'
-  ],
+  common: ['super_admin', 'tenant_admin', 'cohort_admin'],
   super_admin: ['super_admin'], //state_admin_mme
-  super_and_tenant_admin:['super_admin','tenant_admin'],
+  super_and_tenant_admin: ['super_admin', 'tenant_admin'],
   central_admin_ccta: ['central_admin_ccta'],
   central_admin_mme: ['central_admin_mme'],
   state_admin_scta: ['state_admin_scta'],
@@ -156,7 +152,7 @@ export const apiList = {
   '/user/v1/tenant/read': createRouteObject({
     get: {},
   }),
-  '/user/v1/invitation/sendinvite' : createRouteObject({
+  '/user/v1/invitation/sendinvite': createRouteObject({
     post: {
       ROLE_CHECK: rolesGroup.super_and_tenant_admin,
     },
@@ -195,18 +191,16 @@ export const apiList = {
   }),
   '/user/v1/update/:userId': createRouteObject({
     patch: {
-      
-      ROLE_CHECK: rolesGroup.common
+      ROLE_CHECK: rolesGroup.common,
     },
   }),
   '/user/v1/delete/:userId': createRouteObject({
     delete: {
-      ROLE_CHECK: rolesGroup.common
+      ROLE_CHECK: rolesGroup.common,
     },
   }),
   '/user/v1/list': createRouteObject({
-    post: {
-    },
+    post: {},
   }),
   //need confirmation
   '/user/v1/password-reset-link': createRouteObject({
@@ -258,7 +252,7 @@ export const apiList = {
       // PRIVILEGE_CHECK: privilegeGroup.cohort.read,
       // ROLE_CHECK: rolesGroup.team_leader_teacher,
       // ROLE_CHECK: rolesGroup.common,
-    },  
+    },
   }),
   '/user/v1/cohort/update/:cohortId': createRouteObject({
     put: {
@@ -329,7 +323,7 @@ export const apiList = {
   '/user/v1/rbac/roles/create': createRouteObject({
     post: {
       // ROLE_CHECK: rolesGroup.admin_team_leader,
-      ROLE_CHECK: rolesGroup.super_admin
+      ROLE_CHECK: rolesGroup.super_admin,
     },
   }),
   '/user/v1/rbac/roles/update/:id': createRouteObject({
@@ -385,17 +379,16 @@ export const apiList = {
     },
   }),
   '/user/v1/tenant/create': createRouteObject({
-    post: {
-    },
+    post: {},
   }),
   '/user/v1/tenant/update': createRouteObject({
     patch: {
-      ROLE_CHECK: rolesGroup.super_admin
+      ROLE_CHECK: rolesGroup.super_admin,
     },
   }),
   '/user/v1/tenant/delete': createRouteObject({
     post: {
-      ROLE_CHECK: rolesGroup.super_admin
+      ROLE_CHECK: rolesGroup.super_admin,
     },
   }),
   '/user/v1/academicyears/create': createRouteObject({
@@ -1553,11 +1546,14 @@ export const apiList = {
       ROLE_CHECK: rolesGroup.admin_scta_ccta,
     },
   }),
+  '/user/v1/invitation/getall': createRouteObject(common_public_get),
+  '/user/v1/invitation/update': createRouteObject(common_public_get),
 };
 export const urlPatterns = Object.keys(apiList);
 
 //add public api
-export const publicAPI = [  // no check of auth 
+export const publicAPI = [
+  // no check of auth
   '/user/v1/auth',
   '/user/v1/cohort/search',
   '/user/v1/tenant/create',
@@ -1590,6 +1586,8 @@ export const publicAPI = [  // no check of auth
   '/prathamservice/v1/cronjob',
   '/prathamservice/v1/import-user',
   '/user/v1/fields/options/delete/:identifier',
+  '/user/v1/invitation/getall',
+  '/user/v1/invitation/update',
 ];
 
 // api which required academic year
