@@ -383,12 +383,12 @@ export const apiList = {
   }),
   '/user/v1/tenant/update': createRouteObject({
     patch: {
-      ROLE_CHECK: rolesGroup.super_admin,
+      ROLE_CHECK: rolesGroup.super_and_tenant_admin,
     },
   }),
   '/user/v1/tenant/delete': createRouteObject({
-    post: {
-      ROLE_CHECK: rolesGroup.super_admin,
+    delete: {
+      ROLE_CHECK: rolesGroup.super_and_tenant_admin,
     },
   }),
   '/user/v1/academicyears/create': createRouteObject({
